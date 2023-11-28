@@ -2,81 +2,58 @@
 #include <string.h>
 #include <stdlib.h>
 
-// Armazenar as informações da música
+// Armazenar as informações da musica
 struct caracteristicasMusica {
-    char titulo[30], artista[20], album[20], genero[20];
+    char titulo[30], artista[30], album[30], genero[30];
     int favorita;
 };
 
-// Função para inserir música
+// Função para inserir musica
 struct caracteristicasMusica inserir_musica() {
     struct caracteristicasMusica caracteristicasMusica1;
-    int escolha1, escolha2;
 
-    printf("Insira o nome da música: ");
+    printf("Insira o nome da musica: ");
     scanf(" %29[^\n]", caracteristicasMusica1.titulo);
 
-    printf("Voce sabe o nome do artista/banda?\n Sim = 1:\n Nao = 2: ");
-    scanf("%d", &escolha1);
+    printf("Digite o nome do artista/banda: ");
+    scanf(" %29[^\n]", &caracteristicasMusica1.artista);
 
-    while (escolha1 != 1 && escolha1 != 2) {
-        printf("Erro! Digite novamente.\n");
-        printf("Voce sabe o nome do artista/banda?\n Sim = 1:\n Nao = 2: ");
-        scanf("\n%d", &escolha1);
-    }
-
-    if (escolha1 == 1) {
-        printf("Digite o nome do artista/banda: ");
-        scanf(" %19[^\n]", caracteristicasMusica1.artista);
-    }
-
-    printf("Voce sabe o nome do album?\n Sim = 1\n Nao = 2: ");
-    scanf("%d", &escolha2);
-
-    while (escolha2 != 1 && escolha2 != 2) {
-        printf("Erro! Digite novamente.\n");
-        printf("Voce sabe o nome do album?\n Sim = 1\n Nao = 2: ");
-        scanf("%d", &escolha2);
-    }
-
-    if (escolha2 == 1) {
-        printf("Digite o nome do album: ");
-        scanf(" %19[^\n]", caracteristicasMusica1.album);
-    }
+    printf("Digite o nome do album/single: ");
+    scanf(" %29[^\n]", &caracteristicasMusica1.album);
 
     printf("Insira o genero da musica: ");
-    scanf(" %19[^\n]", caracteristicasMusica1.genero);
+    scanf(" %29[^\n]", caracteristicasMusica1.genero);
 
     return caracteristicasMusica1;
 }
 
-// Função para favoritar música
+// Função para favoritar musica
 void favoritarMusica(struct caracteristicasMusica *playlist, int tamanhoPlaylist) {
     char tituloFavorita[30];
-    printf("Insira o título da música que deseja favoritar: ");
+    printf("Insira o titulo da musica que deseja favoritar: ");
     scanf(" %29[^\n]", tituloFavorita);
 
     int encontrada = 0;
     for (int digitada = 0; digitada < tamanhoPlaylist; digitada++) {
         if (strcmp(playlist[digitada].titulo, tituloFavorita) == 0) {
-            playlist[digitada].favorita = 1; // Marcar a música como favorita
+            playlist[digitada].favorita = 1; // Marcar a musica como favorita
             encontrada = 1;
-            printf("Música '%s' favoritada!\n", tituloFavorita);
+            printf("musica '%s' favoritada!\n", tituloFavorita);
             break;
         }
     }
 
     if (!encontrada) {
-        printf("Musica não encontrada na playlist.\n");
+        printf("Musica nao encontrada na playlist.\n");
     }
 }
 
-// Função para visualizar músicas
-void vizualizar(struct caracteristicasMusica *playlist, int tamanhoPlaylist) {
-    printf("Músicas cadastradas:\n");
+// Função para visualizar musicas
+void visualizar(struct caracteristicasMusica *playlist, int tamanhoPlaylist) {
+    printf("musicas cadastradas:\n");
 
     for (int i = 0; i < tamanhoPlaylist; i++) {
-        printf("Música %d:\n", i + 1);
+        printf("musica %d:\n", i + 1);
         printf("Nome: %s\n", playlist[i].titulo);
 
         if (strlen(playlist[i].artista) > 0) {
@@ -90,13 +67,42 @@ void vizualizar(struct caracteristicasMusica *playlist, int tamanhoPlaylist) {
         printf("Genero: %s\n", playlist[i].genero);
 
         if (playlist[i].favorita == 1) {
-            printf("Esta música está favoritada.\n");
+            printf("Esta musica esta favoritada.\n");
         } else {
-            printf("Esta música não está favoritada.\n");
+            printf("Esta musica nao esta favoritada.\n");
         }
         printf("\n");
     }
 }
+
+void buscarMusica(struct caracteristicasMusica *playlist, int tamanhoPlaylist) {
+    char tituloBusca[30];
+    printf("Insira o titulo da musica que deseja buscar: ");
+    scanf(" %29[^\n]", tituloBusca);
+
+    int encontrada = 0;
+    for (int i = 0; i < tamanhoPlaylist; i++) {
+        if (strcmp(playlist[i].titulo, tituloBusca) == 0) {
+            encontrada = 1;
+            printf("Musica encontrada:\n");
+            printf("Nome: %s\n", playlist[i].titulo);
+            printf("Artista/Banda: %s\n", playlist[i].artista);
+            printf("Album: %s\n", playlist[i].album);
+            printf("Genero: %s\n", playlist[i].genero);
+            if (playlist[i].favorita == 1) {
+                printf("Esta musica esta favoritada.\n");
+            } else {
+                printf("Esta musica nao esta favoritada.\n");
+            }
+            break;
+        }
+    }
+
+    if (!encontrada) {
+        printf("musica nao encontrada na playlist.\n");
+    }
+}
+
 
 int main() {
     int escolha;
@@ -123,13 +129,20 @@ int main() {
     if (escolha == 1) {
         // Inserir nova musica
         struct caracteristicasMusica novaMusica = inserir_musica();
+        // Adicione logica para armazenar novaMusica em sua playlist
     } else if (escolha == 2) {
         // Favoritar musica
         favoritarMusica(playlist, tamanhoArray);
     } else if (escolha == 3) {
         // Visualizar musicas
-        vizualizar(playlist, tamanhoArray);
-}
+        visualizar(playlist, tamanhoArray);
+    } else if(escolha == 4) {
+        // busca uma musica ja salva
+        buscarMusica(playlist, tamanhoArray);
+    }
 
-return 0;
+    // limpa a locação de memoria atual
+    free(playlist);
+
+    return 0;
 }
