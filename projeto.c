@@ -141,7 +141,7 @@ int main() {
         buscarMusica(playlist, tamanhoArray);
     }
 
-    // limpa a locação de memoria atual
+    // limpa a locação de memoria atual.
     free(playlist);
 
     return 0;
