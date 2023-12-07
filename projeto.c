@@ -21,6 +21,7 @@ struct caracteristicasMusica inserir_musica() {
 
     printf("Insira o genero da musica: ");
     scanf(" %29[^\n]", caracteristicasMusica1.genero);
+    printf("\n");
 
     return caracteristicasMusica1;
 }
@@ -87,7 +88,7 @@ void buscarmusica(struct caracteristicasMusica *playlist, int tamanhoPlaylist){
     } else{
         for(int i = 0; i < tamanhoPlaylist; i++){
             if(strcmp(musica, playlist[i].titulo) == 0){
-                printf("A musica %s esta na playlist!", musica);
+                printf("A musica %s esta na playlist!\n", musica);
                 verificar = 1;
             }
         }
@@ -120,40 +121,84 @@ void editar(struct caracteristicasMusica *playlist, int tamanhoPlaylist){
     
     printf("Genero: ");
     scanf(" %29[^\n]", playlist[verificar - 1].genero);
+    printf("\n");
     
 }
 
 struct caracteristicasMusica* remover(struct caracteristicasMusica *playlist, int *tamanhoPlaylist) {
     int verificar;
     printf("Qual musica deseja remover?\n");
-    
+
     for(int i = 0; i < *tamanhoPlaylist; i++){
         printf("%d. %s\n", i + 1, playlist[i].titulo);
     }
     scanf("%d", &verificar);
-    
+
+    if (*tamanhoPlaylist == 1) {
+        free(playlist);
+        *tamanhoPlaylist = 0;
+        printf("Musica removida com sucesso.\n");
+        return NULL; 
+    }
+
     if (verificar >= 1 && verificar <= *tamanhoPlaylist) {
         for (int i = verificar - 1; i < *tamanhoPlaylist - 1; i++) {
             playlist[i] = playlist[i + 1];
         }
-        
+
         (*tamanhoPlaylist)--;
-        
+
         struct caracteristicasMusica *novaPlaylist = realloc(playlist, (*tamanhoPlaylist) * sizeof(struct caracteristicasMusica));
-        
+
         if (novaPlaylist == NULL) {
             printf("Erro na realocacao de memoria.");
             exit(1);
         }
-        
+
         printf("Musica removida com sucesso.\n");
-        
+
         return novaPlaylist;
     } else {
         printf("Indice invalido.\n");
         return playlist;
     }
     printf("\n");
+}
+
+void txt(struct caracteristicasMusica *playlist, int tamanhoPlaylist) {
+    FILE *file;
+    file = fopen("playlist.txt", "a");  
+
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    for (int i = 0; i < tamanhoPlaylist; i++) {
+        fprintf(file, "Musica %d:\n", i + 1);
+        fprintf(file, "Nome: %s\n", playlist[i].titulo);
+
+        if (strlen(playlist[i].artista) > 0) {
+            fprintf(file, "Artista/Banda: %s\n", playlist[i].artista);
+        }
+
+        if (strlen(playlist[i].album) > 0) {
+            fprintf(file, "Album: %s\n", playlist[i].album);
+        }
+
+        fprintf(file, "Genero: %s\n", playlist[i].genero);
+
+        if (playlist[i].favorita == 1) {
+            fprintf(file, "Esta musica esta favoritada.\n");
+        } else {
+            fprintf(file, "Esta musica nao esta favoritada.\n");
+        }
+
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+    printf("Playlist salva no arquivo 'playlist.txt'.\n");
 }
     
     
@@ -195,7 +240,7 @@ int main() {
         } else if(escolha == 6){
             playlist = remover(playlist, &tamanhoPlaylist);
         } else if(escolha == 7){
-            
+            txt(playlist, tamanhoPlaylist);
         }
         
     } while (escolha == 0 || escolha == 1 || escolha == 2 || escolha == 3 
