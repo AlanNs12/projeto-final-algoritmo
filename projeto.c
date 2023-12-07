@@ -43,6 +43,7 @@ void favoritarMusica(struct caracteristicasMusica *playlist, int tamanhoPlaylist
     if (!encontrada) {
         printf("Musica nao encontrada na playlist.\n");
     }
+    printf("\n");
 }
 
 void visualizar(struct caracteristicasMusica *playlist, int tamanhoPlaylist) {
@@ -70,16 +71,16 @@ void visualizar(struct caracteristicasMusica *playlist, int tamanhoPlaylist) {
             } else {
                 printf("Esta musica nao esta favoritada.\n");
             }
-            printf("\n");
         }
     }
+    printf("\n");
 }
 
 void buscarmusica(struct caracteristicasMusica *playlist, int tamanhoPlaylist){
     char musica[30];
     int verificar = 0;
     printf("Digite o nome da musica: ");
-    scanf("%s", musica);
+    scanf(" %29[^\n]", musica);
 
      if(tamanhoPlaylist == 0){
         printf("A playlist nao possui nenhuma musica cadastrada\n");
@@ -94,13 +95,73 @@ void buscarmusica(struct caracteristicasMusica *playlist, int tamanhoPlaylist){
     if(verificar == 0){
         printf("Musica nao encontrada.\n");
     }
+    printf("\n");
 }
 
+void editar(struct caracteristicasMusica *playlist, int tamanhoPlaylist){
+    int verificar;
+    char titulo2[30], artista2[30], album2[30], genero2[30];
+    printf("Qual musica deseja editar?\n");
+    
+    for(int i = 0; i < tamanhoPlaylist; i++){
+        printf("%d. %s\n", i + 1, playlist[i].titulo);
+    }
+    
+    scanf("%d", &verificar);
+    
+    printf("Nome: ");
+    scanf(" %29[^\n]", playlist[verificar - 1].titulo);
+    
+    printf("Artista/Banda: ");
+    scanf(" %29[^\n]", playlist[verificar - 1].artista);
+    
+    printf("Album: ");
+    scanf(" %29[^\n]", playlist[verificar - 1].album);
+    
+    printf("Genero: ");
+    scanf(" %29[^\n]", playlist[verificar - 1].genero);
+    
+}
+
+struct caracteristicasMusica* remover(struct caracteristicasMusica *playlist, int *tamanhoPlaylist) {
+    int verificar;
+    printf("Qual musica deseja remover?\n");
+    
+    for(int i = 0; i < *tamanhoPlaylist; i++){
+        printf("%d. %s\n", i + 1, playlist[i].titulo);
+    }
+    scanf("%d", &verificar);
+    
+    if (verificar >= 1 && verificar <= *tamanhoPlaylist) {
+        for (int i = verificar - 1; i < *tamanhoPlaylist - 1; i++) {
+            playlist[i] = playlist[i + 1];
+        }
+        
+        (*tamanhoPlaylist)--;
+        
+        struct caracteristicasMusica *novaPlaylist = realloc(playlist, (*tamanhoPlaylist) * sizeof(struct caracteristicasMusica));
+        
+        if (novaPlaylist == NULL) {
+            printf("Erro na realocacao de memoria.");
+            exit(1);
+        }
+        
+        printf("Musica removida com sucesso.\n");
+        
+        return novaPlaylist;
+    } else {
+        printf("Indice invalido.\n");
+        return playlist;
+    }
+    printf("\n");
+}
+    
+    
 int main() {
     int escolha, escolha2;
     int tamanhoArray = 4;
-    int tamanhoPlaylist = 0;  
-    struct caracteristicasMusica *playlist;
+    int tamanhoPlaylist = 0;
+    struct caracteristicasMusica *playlist = NULL;
 
     do {
         playlist = (struct caracteristicasMusica *)realloc(playlist, (tamanhoPlaylist + 1) * sizeof(struct caracteristicasMusica));
@@ -109,13 +170,14 @@ int main() {
             printf("Erro na alocacao de memoria.");
             return 1;
         }
-        
-        printf("\n");
+
         printf("1. Inserir nova musica.\n");
         printf("2. Favoritar musica.\n");
         printf("3. Mostrar musicas cadastradas na playlist, exibindo quais foram favoritadas.\n");
         printf("4. Buscar musica.\n");
-        printf("5. Sair da playlist\n");
+        printf("5. Editar informacoes de uma musica.\n");
+        printf("6. Remover musica.\n");
+        printf("7. Salvar e sair.\n");
 
         scanf("%d", &escolha);
 
@@ -128,11 +190,16 @@ int main() {
             visualizar(playlist, tamanhoPlaylist);
         } else if (escolha == 4){
             buscarmusica(playlist, tamanhoPlaylist);
+        } else if (escolha == 5){
+            editar(playlist, tamanhoPlaylist);
+        } else if(escolha == 6){
+            playlist = remover(playlist, &tamanhoPlaylist);
+        } else if(escolha == 7){
+            
         }
         
-    } while (escolha == 0 || escolha == 1 || escolha == 2 || escolha == 3 || escolha == 4);
-
-    // limpa a locação de memoria atual
+    } while (escolha == 0 || escolha == 1 || escolha == 2 || escolha == 3 
+    || escolha == 4 || escolha == 5 || escolha == 6);
 
     free(playlist);
 
