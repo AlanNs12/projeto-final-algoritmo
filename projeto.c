@@ -132,6 +132,8 @@ int main() {
         
     } while (escolha == 0 || escolha == 1 || escolha == 2 || escolha == 3 || escolha == 4);
 
+    // limpa a locação de memoria atual
+
     free(playlist);
 
     return 0;
