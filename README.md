@@ -54,7 +54,7 @@
 <td align="center">UC23200388</td>
 </tr>
 <tr>
-<td align="center">Tiago Miguel Caetano Da Silva</td>
+<td align="center">Joao Siqueira</td>
 <td align="center"><a href="https://github.com/tmcstiago">@joaosiqueiraofc</a></td>
 <td align="center">UC23103134</td>
 </tr>
