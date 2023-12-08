@@ -12,7 +12,7 @@
     </ul>
     <h2>Como Usar</h2>
     <ol>
-        <li><strong>Compilação:</strong> Compile o programa utilizando um compilador C compatível (exemplo: gcc ou diretamente pelo navegador atraves do <a href="https://onlinegdb.com/IdkxufcyT">Online GDB</a> ).</li>
+        <li><strong>Compilação:</strong> Compile o programa utilizando um compilador C compatível (exemplo: gcc ou diretamente pelo navegador atraves do <a href="https://onlinegdb.com/fTdCHaJTyA">Online GDB</a> ).</li>
         <li><strong>Execução:</strong> Execute o arquivo compilado para iniciar o programa.</li>
         <li><strong>Interagindo com o Programa:</strong> Siga as instruções do menu para realizar as ações desejadas.</li>
     </ol>
