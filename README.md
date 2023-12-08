@@ -16,6 +16,12 @@
         <li><strong>Execução:</strong> Execute o arquivo compilado para iniciar o programa.</li>
         <li><strong>Interagindo com o Programa:</strong> Siga as instruções do menu para realizar as ações desejadas.</li>
     </ol>
+    <h2>Ferramentas utilizadas</h2>
+    <ol>
+        <li><strong>Visual Studio Code</strong> (Usado para o desenvolvimento do codigo)</li>
+        <li><strong>GitHub</strong> (Versionamento e controle de versao.)</li>
+        <li><strong>Discord</strong> (Utilizado para a comunicacao do grupo durante o desenvolvimento)</li>
+    </ol>
     
 <h2 align="center">Autores</h2>
     
@@ -44,18 +50,18 @@
 <td align="center">UC23200311</td>
 </tr>
 <tr>
-<td align="center">Gustavo</td>
-<td align="center"><a href="https://github.com/leticiaarj">@GustavoNSBr</a></td>
+<td align="center">Gustavo Nunes</td>
+<td align="center"><a href="https://github.com/GustavoNSBr">@GustavoNSBr</a></td>
 <td align="center">UC23200427</td>
 </tr>
 <tr>
 <td align="center">Joao Gabriel Checchia</td>
-<td align="center"><a href="https://github.com/medeiroslucas">@joaochecchia</a></td>
+<td align="center"><a href="https://github.com/joaochecchia">@joaochecchia</a></td>
 <td align="center">UC23200388</td>
 </tr>
 <tr>
 <td align="center">Joao Siqueira</td>
-<td align="center"><a href="https://github.com/tmcstiago">@joaosiqueiraofc</a></td>
+<td align="center"><a href="https://github.com/joaosiqueiraofc">@joaosiqueiraofc</a></td>
 <td align="center">UC23103134</td>
 </tr>
 </tbody>
